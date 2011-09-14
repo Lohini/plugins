@@ -11,6 +11,7 @@ namespace LohiniPlugins\Blog\Models\Entities;
  * Comment entity
  *
  * @author Lopo <lopo@lohini.net>
+ *
  * @entity(repositoryClass="LohiniPlugins\Blog\Models\Repositories\Comment")
  * @table(name="_blog_comments")
  * @service(class="LohiniPlugins\Blog\Models\Services\Comments")

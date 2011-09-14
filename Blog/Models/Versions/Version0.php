@@ -7,9 +7,12 @@
  */
 namespace LohiniPlugins\Blog\Models\Versions;
 
+use Doctrine\DBAL\Schema\Schema;
+
 /**
- * Version1
+ * Version file
  *
+ * @version 0
  * @author Lopo <lopo@lohini.net>
  */
 class Version0
@@ -18,14 +21,14 @@ extends \Doctrine\DBAL\Migrations\AbstractMigration
 	/**
 	 * @param \Doctrine\DBAL\Schema\Schema $schema
 	 */
-	public function up(\Doctrine\DBAL\Schema\Schema $schema)
+	public function up(Schema $schema)
 	{
 	}
 
 	/**
 	 * @param \Doctrine\DBAL\Schema\Schema $schema
 	 */
-	public function down(\Doctrine\DBAL\Schema\Schema $schema)
+	public function down(Schema $schema)
 	{
 	}
 }

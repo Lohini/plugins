@@ -8,9 +8,9 @@
 namespace LohiniPlugins\Blog\AdminModule;
 
 /**
- * Description of DefaultPresenter
+ * Default admin presenter
  *
- * @author Lopo
+ * @author Lopo <lopo@lohini.net>
  */
 class DefaultPresenter
 extends \LohiniPlugins\Blog\Presenters\SecuredPresenter

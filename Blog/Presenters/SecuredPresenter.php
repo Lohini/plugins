@@ -8,9 +8,9 @@
 namespace LohiniPlugins\Blog\Presenters;
 
 /**
- * Description of BasePresenter
+ * Secured Presenter
  *
- * @author Lopo
+ * @author Lopo <lopo@lohini.net>
  */
 class SecuredPresenter
 extends \Lohini\Plugins\SecuredPresenter
@@ -24,6 +24,11 @@ extends \Lohini\Plugins\SecuredPresenter
 		$this->template->filesUploadPath=$this->link(':TexylaFiles:upload');
 	}
 
+	/**
+	 *
+	 * @param string $class
+	 * @return ITemplate
+	 */
 	protected function createTemplate($class=NULL)
 	{
 		$tpl=parent::createTemplate($class);

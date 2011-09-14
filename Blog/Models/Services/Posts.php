@@ -12,7 +12,7 @@ extends \Lohini\Database\Doctrine\ORM\BaseService
 	/**
 	 * @param array $values
 	 * @param bool $withoutFlush
-	 * @return Entity
+	 * @return Post entity
 	 */
 	public function create($values, $withoutFlush=FALSE)
 	{

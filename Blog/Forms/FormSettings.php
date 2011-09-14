@@ -25,7 +25,7 @@ extends \Lohini\Application\UI\Form
 	public function __construct(\Nette\ComponentModel\IContainer $parent, $name)
 	{
 		parent::__construct($parent, $name);
-		$repo=\Nette\Environment::getService('sqldb')->getRepository('LohiniPlugins\Blog\Models\Entities\Setting');
+		$repo=\Nette\Environment::getService('sqldb')->getRepository('LP:Blog\Models\Entities\Setting');
 
 		$this->addText('blogName', 'Blog name', 100, 255)
 				->setDefaultValue($repo->findOneByName('blogName')->value);
@@ -38,7 +38,6 @@ extends \Lohini\Application\UI\Form
 	}
 
 	/**
-	 * @param \Nette\Forms\Controls\SubmitButton $btn
 	 */
 	public function submittedUpdate()
 	{

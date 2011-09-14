@@ -11,9 +11,9 @@ use Nette\Forms\Form,
 	LohiniPlugins\Blog;
 
 /**
- * Description of DefaultPresenter
+ * Default plugin presenter
  *
- * @author Lopo
+ * @author Lopo <lopo@lohini.net>
  */
 class DefaultPresenter
 extends BasePresenter
@@ -59,6 +59,9 @@ extends BasePresenter
 		$this->template->tagName=$tag;
 	}
 
+	/**
+	 * @param string $callback
+	 */
 	public function actionTagcloud($callback)
 	{
 		$tags=array();
@@ -79,7 +82,7 @@ extends BasePresenter
 	}
 
 	/**
-	 * @return \Lohini\Application\UI\Form
+	 * @return Form
 	 */
 	protected function createComponentFormComment()
 	{

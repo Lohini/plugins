@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="{$lang}">
-<head><!-- skin default -->
+<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 	<meta name="robots" content="{$robots}" n:ifset="$robots">
@@ -14,7 +14,7 @@
 	<link type="text/plain" href="{$basePath}/humans.txt" rel="author" />
 	<link type="text/directory" href="{$basePath}/vCard.vcf" rel="alternate" title="vCard" />
 
-	{control css /*'fonts.css', 'reset.css', */'normalize.css', 'site.css', 'jquery-ui.css', 'print.css'=>'print', 'fshl.css'}
+	{control css 'normalize.css', 'site.css', 'jquery-ui.css', 'print.css'=>'print', 'fshl.css'}
 	{control pcss 'style.css', 'precode.css'}
 	{block #css}{/block}
 

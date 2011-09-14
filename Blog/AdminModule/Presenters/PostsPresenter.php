@@ -12,7 +12,7 @@ use Nette\Utils\Html,
 	LohiniPlugins\Blog\Models\Entities\Post;
 
 /**
- * Admin presenter
+ * Posts admin presenter
  *
  * @author Lopo <lopo@lohini.net>
  */

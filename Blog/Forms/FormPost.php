@@ -12,7 +12,7 @@ use Nette\Forms\Form,
 	LohiniPlugins\Blog\Models\Entities\Post;
 
 /**
- * Comment form
+ * Post form
  *
  * @author Lopo <lopo@lohini.net>
  */
@@ -48,7 +48,6 @@ extends \Lohini\Application\UI\Form
 	}
 
 	/**
-	 *
 	 * @param string $name
 	 * @param string $label
 	 * @return FormPost
@@ -109,6 +108,9 @@ extends \Lohini\Application\UI\Form
 		$this->presenter->redirect('default');
 	}
 
+	/**
+	 * @param Form $form
+	 */
 	public function submitted(Form $form)
 	{
 		if ($op=$form->isSubmitted()) {

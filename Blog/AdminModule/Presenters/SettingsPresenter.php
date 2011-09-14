@@ -8,7 +8,7 @@
 namespace LohiniPlugins\Blog\AdminModule;
 
 /**
- * Default Presenter of Admin module
+ * Settings admin presenter
  *
  * @author Lopo <lopo@lohini.net>
  */

@@ -1,6 +1,6 @@
 <?php // vim: ts=4 sw=4 ai:
 /**
- * This file is part of Lohini
+ * This file is part of Lohini plugin Blog
  *
  * @copyright (c) 2010, 2011 Lopo <lopo@lohini.net>
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License Version 3
@@ -10,6 +10,11 @@ namespace LohiniPlugins\Blog;
 use Nette\Application\IRouter,
 	Nette\Application\Routers\Route;
 
+/**
+ * Main class of plugin Blog
+ *
+ * @author Lopo <lopo@lohini.net>
+ */
 class Plugin
 extends \Lohini\Plugins\Plugin
 {
@@ -17,9 +22,14 @@ extends \Lohini\Plugins\Plugin
 	const AUTHOR='Lopo';
 	const PREFIX='blog';
 
+	public $dependencies=array(
+		'php' => '5.3.2',
+		'lohini' => '0.2.0-dev'
+		);
+
 
 	/**
-	 * @param RouteList $router
+	 * @param IRouter $router
 	 * @return RouteList
 	 */
 	public function injectRouter(IRouter $router)
@@ -40,7 +50,7 @@ extends \Lohini\Plugins\Plugin
 	}
 
 	/**
-	 * @param RouteList $router
+	 * @param IRouter $router
 	 * @return RouteList
 	 */
 	private function routerInstalled(IRouter $router)
@@ -50,7 +60,7 @@ extends \Lohini\Plugins\Plugin
 	}
 
 	/**
-	 * @param RouteList $router
+	 * @param IRouter $router
 	 * @return RouteList
 	 */
 	private function routerEnabled(IRouter $router)
@@ -60,25 +70,5 @@ extends \Lohini\Plugins\Plugin
 		$router[]=new Route(self::PREFIX.'/tag/<tag [a-z0-9 _-]+>', 'Default:tag');
 		$router[]=new Route(self::PREFIX.'/<slug [a-z0-9_-]+>', 'Default:post');
 		return $router;
-	}
-
-	/**
-	 * @throws \Lohini\Plugins\PluginException
-	 */
-	public function checkDependencies()
-	{
-		$php_ver='5.3.2';
-		if (!version_compare(phpversion(), $php_ver, '>=')) {
-			throw \Lohini\Plugins\PluginException::outdatedDependency('PHP', $php_ver, phpversion());
-			}
-		$lohini_ver='0.2.0-dev';
-		if (!version_compare(\Lohini\Core::VERSION, $lohini_ver, '>=')) {
-			throw \Lohini\Plugins\PluginException::outdatedDependency('Lohini', $lohini_ver, \Lohini\Core::VERSION);
-			}
-	}
-
-	public function preInstall()
-	{
-		$this->checkDependencies();
 	}
 }

@@ -10,15 +10,16 @@ namespace LohiniPlugins\Blog\Models\Versions;
 use Doctrine\DBAL\Schema\Schema;
 
 /**
- * Version1
+ * Version file
  *
+ * @version 201109140923
  * @author Lopo <lopo@lohini.net>
  */
 class Version201109140923
 extends \Doctrine\DBAL\Migrations\AbstractMigration
 {
 	/**
-	 * @param \Doctrine\DBAL\Schema\Schema $schema
+	 * @param Schema $schema
 	 */
 	public function up(Schema $schema)
 	{
@@ -73,6 +74,9 @@ extends \Doctrine\DBAL\Migrations\AbstractMigration
 		$pt->addForeignKeyConstraint($tags, array('tag_id'), array('id'));
 	}
 
+	/**
+	 * @param Schema $schema
+	 */
 	public function postUp(Schema $schema)
 	{
 		$s=$schema->getTable('_blog_settings');
@@ -81,7 +85,7 @@ extends \Doctrine\DBAL\Migrations\AbstractMigration
 	}
 
 	/**
-	 * @param \Doctrine\DBAL\Schema\Schema $schema
+	 * @param Schema $schema
 	 */
 	public function down(Schema $schema)
 	{

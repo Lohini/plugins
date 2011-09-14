@@ -8,9 +8,9 @@
 namespace LohiniPlugins\Blog\Presenters;
 
 /**
- * Description of BasePresenter
+ * Base blog plugin presenter
  *
- * @author Lopo
+ * @author Lopo <lopo@lohini.net>
  */
 class BasePresenter
 extends \Lohini\Plugins\BasePresenter
@@ -25,6 +25,10 @@ extends \Lohini\Plugins\BasePresenter
 		$this->template->filesUploadPath=$this->link(':TexylaFiles:upload');
 	}
 
+	/**
+	 * @param string $class
+	 * @return \Nette\Templating\ITemplate
+	 */
 	protected function createTemplate($class=NULL)
 	{
 		$tpl=parent::createTemplate($class);
