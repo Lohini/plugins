@@ -1,0 +1,18 @@
+{block content}
+<h2 class="section" style="text-align: right;">{__('Archive')}</h2>
+
+<style>
+.ac {
+	border: 1px solid #000;
+	}
+</style>
+
+<table>
+	<tr n:foreach="$posts as $post">
+		<td class="ac">{$post->created->format('j.n.Y')}</td>
+		<td class="ac">
+			<a href="{$basePath}/blog/{$post->slug}">{$post->headline}</a>
+		</td>
+		<td class="ac">{$post->user->identity->displayName}</td>
+	</tr>
+</table>

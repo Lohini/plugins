@@ -1,0 +1,46 @@
+/* 
+    Document   : style
+    Created on : 1.9.2011, 10:58:06
+    Author     : Lopo
+*/
+body {
+	background: #fff;
+	margin: 0px;
+	font-family: Verdana, Arial, sans-serif;
+	color: #000;
+	}
+.blogtitle {
+	font-family: 'Lucida Console', Verdana, Arial, sans-serif;
+	color: #fff;
+	font-size: 36px;
+	margin: 2px;
+	}
+.links {
+	font-family: Verdana, Arial, sans-serif;
+	color: black;
+	font-size: 11px;
+	}
+a {
+	color: #0069c3;
+	}
+a:hover	{
+	color: #f00;
+	}
+a.byline {
+	color: #000;
+	text-decoration: none;
+	}
+.date, .posts, .byline {
+	font-family: Verdana, Arial, sans-serif;
+	color: #000;
+	}
+.date {
+	font-size: 14px;
+	font-weight: bold;
+	}
+.posts {
+	font-size: 12px;
+	}
+.byline {
+	font-size: 11px;
+	}

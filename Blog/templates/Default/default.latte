@@ -1,0 +1,68 @@
+{block css}{include #parent}
+	{control pcss 'tagcloud.css'}
+{/block}
+
+{block content}
+<table style="width: 100%; border: 0; padding: 5px;" cellspacing="10">
+	<tr>
+<!--This is a good place for static links and a description of your blog. -->
+		<td valign="top" width="180">
+			<div class="links">
+				<p>{$MTBlogDescription}</p>
+				<p>
+					<a href="{$basePath}/" class="links">{__('Front page')}</a><br />
+					<a href="{$basePath}/blog/archive" class="links">{__('Archive')}</a><br />
+				</p>
+			</div>
+			<div id="tagCloud">
+				<h2>{__('Tags')}</h2>
+			</div>
+		</td>
+<!--This is where the actual content of your blog goes. -->
+		<td valign="top">
+			{foreach $posts as $post}
+			<p><a href="{$basePath}/blog/{$post->slug}"><strong>{$post->headline}</strong></a>
+			<div class="posts">
+				<p>
+					<a name="{$post->slug}">
+						<b class="byline">
+							<span class="date">{__('Posted')} {$post->created->format('j.n.Y')}</span> {__('by')} {$post->user->identity->displayName} (<a href="{$basePath}/blog/{$post->slug}#comments" class="comments-link">{__('comments')}: {$post->commentsCnt}</a>)
+						</b>
+					</a>
+					<br />
+				{!$post->text|perex|texy}
+			</div>
+			<blockquote><hr></blockquote>
+			{/foreach}
+			<p><div align="center">
+				<a style="font-size: 14px; font-weight: bold" href="{$basePath}/blog">{__('Home')}</a>
+			</div></p>
+		</td>
+	</tr>
+</table>
+
+<script>
+	head.ready(function() {
+		$.getJSON(
+			{$basePath}+'/blog/tagcloud?callback=?',
+			function(data) {
+				$('<ul>')
+					.attr('id', 'tagList')
+					.appendTo('#tagCloud');
+				$.each(data.tags, function(i, val) {
+					var li=$('<li>');
+					$('<a>')
+						.text(val.tag)
+						.attr({
+							title: {_'See all pages tagged with '}+val.tag+' ('+val.freq+')',
+							href: {$basePath}+'/blog/tag/'+val.tag
+							})
+						.appendTo(li);
+					li.children()
+						.css('fontSize', (val.freq/10<1)? val.freq/10+1+'em' : (val.freq/10>2)? '2em' : val.freq/10+'em');
+					li.appendTo('#tagList');
+					});
+				}
+			);
+		});
+</script>

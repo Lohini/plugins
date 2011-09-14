@@ -1,0 +1,36 @@
+{block content}
+<table style="width: 100%; border: 0; padding: 5px;" cellspacing="10">
+	<tr>
+		<td valign="top" width="180">
+			<div class="links">
+				<p>
+					<a n:href="Settings:" class="links">{__('Settings')}</a><br />
+					<a n:href="Posts:" class="links">{__('Posts')}</a><br />
+				</p>
+			</div>
+		</td>
+		<td valign="top">
+			<h2>{__('Settings')}</h2>
+			{control formSettings begin}
+				{var form => $control['formSettings']}
+				<table>
+					<tr n:if="$form->hasErrors()">
+						<td colspan="3">{control formSettings errors}</td>
+					</tr>
+					<tr>
+						<th>{$form['blogName']->label}: </th>
+						<td colspan="2">{$form['blogName']->control}</td>
+					</tr>
+					<tr>
+						<th>{$form['blogDescription']->label}: </th>
+						<td colspan="2">{$form['blogDescription']->control}</td>
+					</tr>
+					<tr>
+						<td class="submit" colspan="2">{$form['update']->control}</td>
+					</tr>
+				</table>
+			{control formSettings end}
+		</td>
+	</tr>
+</table>
+<br />

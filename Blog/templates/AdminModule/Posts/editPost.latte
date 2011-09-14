@@ -1,0 +1,50 @@
+{block css}{include #parent}
+	{control css 'texyla/style.css', 'texyla/themes/default/theme.css'}
+	{control pcss 'tagInput.scss'}
+{/block}
+
+{block content}
+
+<h2>{__('edit post')}</h2>
+
+{control formPost begin}
+	{var form => $control['formPost']}
+	<table id="quickpost">
+		<tr n:if="$form->hasErrors()">
+			<td colspan="3">{control formPost errors}</td>
+		</tr>
+		<tr>
+			<th>{$form['headline']->label}</th>
+			<td colspan="2">{$form['headline']->control}</td>
+		</tr>
+		<tr>
+			<th>{$form['text']->label}</th>
+			<td colspan="2">{$form['text']->control}</td>
+		</tr>
+		<tr>
+			<th>{$form['tags']->label}</th>
+			<td>{$form['tags']->control}</td>
+		</tr>
+		<tr>
+			<td class="submit" colspan="2">{$form['update']->control}</td>
+		</tr>
+	</table>
+{control formPost end}
+<script type="text/javascript">
+	head.js(
+		'{control texyla:link}',
+		function() {
+			$('textarea.texyla')
+				.texyla({
+					language: 'en',
+					baseDir: {$basePath}+'/img/texyla',
+					previewPath: {plink preview},
+					filesPath: {$filesPath},
+					filesUploadPath: {$filesUploadPath},
+					filesThumbPath: "%var%",
+					toolbar: ['h3', 'h4', null, 'bold', 'italic', null, 'ul', 'ol', 'blockquote', 'table', 'symbol', null, 'link', 'img'],
+					bottomRightPreviewToolbar: []
+					});
+			}
+		);
+</script>

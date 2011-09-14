@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="{$lang}">
+<head><!-- skin default -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<meta name="robots" content="{$robots}" n:ifset="$robots">
+	<meta name="description" content="{$description}" n:ifset="$description">
+	<meta name="keywords" content="{$keywords}" n:ifset="$keywords">
+
+	<title>{ifset $title}{$title}{$titleSeparator}{/ifset}{=SITE}</title>
+
+	<link type="image/png" href="{$basePath}/img/ico/favicon.png" rel="shortcut icon" />
+	<link type="image/png" href="{$basePath}/img/ico/favicon.png" rel="icon" />
+	<link type="text/plain" href="{$basePath}/humans.txt" rel="author" />
+	<link type="text/directory" href="{$basePath}/vCard.vcf" rel="alternate" title="vCard" />
+
+	{control css /*'fonts.css', 'reset.css', */'normalize.css', 'site.css', 'jquery-ui.css', 'print.css'=>'print', 'fshl.css'}
+	{control pcss 'style.css', 'precode.css'}
+	{block #css}{/block}
+
+	<script type="text/javascript" src="{$basePath}/js/head.js"></script>
+	{control js 'yepnope.js', 'modernizr.js', 'jquery.js', 'jquery.livequery.js', 'jquery-ui.js', 'bailiff.js'}
+	{block #js}{/block}
+</head>
+
+<body>
+	<table style="width: 100%; background-color: #000; padding: 1px;">
+		<tr height="10">
+			<td bgcolor="#999"></td>
+		</tr>
+		<tr height="80">
+			<td align="right" bgcolor="#c33" class="blogtitle">{$MTBlogName}</td>
+		</tr>
+		<tr height="10">
+			<td bgcolor="#999"></td>
+		</tr>
+	</table>
+
+	<div id="flashes" n:snippet="flashMessage">
+		<div class="flash {$flash->type}" n:foreach="$flashes as $flash">{!$flash->message}</div>
+	</div>
+	<div id="content">
+		{include #content}
+	</div>
+</body>
+</html>

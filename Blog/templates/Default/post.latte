@@ -1,0 +1,103 @@
+{block js}{include #parent}
+	{control pjs 'post.js'}
+{/block}
+
+{block content}
+<div class="post single">
+	<h2 class="entry-title">{$post->headline}</h2>
+	<p class="entry-date">{$post->created->format('j.n.Y')}</p>
+
+	<div class="entry-content">
+		{!$post->text|texy}
+	</div><!-- .entry-content -->
+
+	<p class="tag-links">
+		<span>{__('tags')}: </span>
+		{foreach $post->tags as $tag}
+			<a href="{plink Default:tag 'tag'=>$tag->name}">{$tag->name}</a>
+			{sep}|{/sep}
+		{/foreach}
+	</p>
+</div><!-- .post -->
+<hr />
+<div id="comments">
+{snippet comments}
+	<h3>{__('Comments')}: {=count($comments)}</h3>
+	{if !empty($comments)}
+		<ul id="commentlist">
+			<li n:foreach="$comments as $comment" id="comment-{$comment->id}">
+				<div class="commentHead">
+					<a class="commentPermalink" href="#comment-{$comment->id}">#{$iterator->getCounter()}</a>
+					<div class="commentAuthor">
+						{$comment->email|gravatar}
+					{if $comment->url}
+						<a href="http://{$comment->url}" rel="nofollow">{$comment->author}</a>
+					{else}
+						{$comment->author}
+					{/if}
+					</div>
+					<p class="commentDate">{$comment->created->format('M j, Y, H:i')}</p>
+				</div>
+				<div class="commentBody">
+					{!$comment->text|texy}
+				</div>
+			</li><!-- comment -->
+		</ul><!-- #commentlist -->
+	{else}
+		<p>{__('No comments yet')}</p>
+	{/if}
+{/snippet}
+{snippet commentForm}
+	{control formComment begin}
+		{var form => $control['formComment']}
+		{if !$form->hasErrors()}
+			<h3>{__('Leave a Reply')}</h3>
+		{else}
+			<h3 class="error">{__('Form contains errors')}</h3>
+		{/if}
+		<span class="error bottom" n:foreach="$form[\Nette\Forms\Form::PROTECTOR_ID]->errors as $error">{$error}</span>
+		<table>
+			{if $user->isLoggedIn()}
+				<p>{__('Logged in as')} {$user->identity->displayName}.
+				<a n:href=":Core:Auth:logout" title="{__('Log out of this account')}">{__('Log out')} &raquo;</a></p>
+			{else}
+			<tr>
+				<td class="c1">{$form['author']->control}</td>
+				<td colspan="2">
+					{$form['author']->label}
+					<span class="error" n:foreach="$form['author']->errors as $error">{$error}</span>
+				</td>
+			</tr>
+			<tr>
+				<td class="c1">{$form['email']->control}</td>
+				<td colspan="2">
+					{$form['email']->label}
+					<span class="error" n:foreach="$form['email']->errors as $error">{$error}</span>
+				</td>
+			</tr>
+			<tr>
+				<td class="c1">{$form['url']->control}</td>
+				<td colspan="2">
+					{$form['url']->label}
+					<span class="error" n:foreach="$form['url']->errors as $error">{$error}</span>
+				</td>
+			</tr>
+			{/if}
+			<tr>
+				<td class="commentWrapp" rowspan="2" colspan="2">{$form['comment']->control}</td>
+				<td class="commentMsgs">
+					{$form['comment']->label}
+					<span class="error" n:foreach="$form['comment']->errors as $error">{$error}</span>
+				</td>
+			</tr>
+			<tr>
+				<td class="commentHint">{__('You can format your comment using Texy!')}</td>
+			</tr>
+			<tr>
+				<td>{$form['send']->control}</td>
+			</tr>
+		</table>
+	{control formComment end}
+{/snippet}
+</div><!-- #comments -->
+<br />

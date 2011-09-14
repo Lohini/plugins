@@ -1,0 +1,34 @@
+pre {
+	overflow: auto;
+	=padding-bottom: 2em;
+	}
+* html pre {
+	overflow-y: visible;
+	}
+p code, li code, dl code {
+	white-space: nowrap;
+	}
+pre {
+	border: 1px dashed #b4b4b4 !important;
+	border-bottom-color: #ededed !important;
+	border-right-color: #ededed !important;
+	padding: 7px !important;
+	overflow: auto;
+	_overflow-y: visible;
+	_padding-bottom: 2em !important;
+	}
+pre, code, var {
+	font-family: "Monospace font handling in Firefox is braindead", monospace !important;
+	font-size: 107% !important;
+	line-height: 1.35em !important;
+	}
+p code, li code, dl code {
+	white-space: nowrap;
+	background: #EEE;
+	}
+pre {
+	background: #f9f9f9 !important;
+	}
+p code, li code, dl code {
+	white-space: nowrap;
+	}
