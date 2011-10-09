@@ -22,15 +22,20 @@ extends \Lohini\Application\UI\Form
 		parent::__construct($parent, $name);
 		if (!$this->presenter->getUser()->isLoggedIn()) {
 			$this->addText('author', 'Author')
-					->addRule(Form::FILLED, 'Enter name');
+					->addRule(Form::FILLED, 'Enter name')
+					->controlPrototype->placeholder='Your Name';
 			$this->addText('email', 'Email')
 					->addRule(Form::FILLED, 'Enter email')
-					->addRule(Form::EMAIL, 'Not valid email');
-			$this->addText('url', 'Website');
+					->addRule(Form::EMAIL, 'Not valid email')
+					->controlPrototype->placeholder='Your Email';
+			$this->addText('url', 'Website')
+					->controlPrototype->placeholder='Your Website';
 			}
-		$this->addTextArea('comment', 'Comment')
+
+		$this->addTextArea('comment', 'Comment', 20, 10)
 				->addRule(Form::FILLED, 'Comment can\'t be empty')
 				->labelPrototype->class='visuallyHidden';
+
 		$this->addSubmit('send', 'Send');
 		$this->onSuccess[]=array($this, 'formSubmitted');
 		$this->onInvalidSubmit[]=array($this, 'formInvalid');
@@ -45,12 +50,16 @@ extends \Lohini\Application\UI\Form
 				$identity=$user->identity;
 				$vals['author']=$identity->displayName;
 				$vals['email']=$identity->email;
+				$vals['url']=$this->presenter->link('//:Core:Default:');
 				}
-			$form->presenter->context->sqldb->getRepository('LP:Blog\Models\Entities\Comment')->insertNew(
-				$vals,
-				$this->presenter->getParam('slug'),
-				$this->getHttpRequest()
-				);
+			$vals['url']=rtrim(\Nette\Utils\Strings::replace($vals['url'], '#^https?://#', ''), '/');
+			$form->presenter->context->sqldb
+				->getRepository('LP:Blog\Models\Entities\Comment')
+				->insertNew(
+					$vals,
+					$this->presenter->getParam('slug'),
+					$this->getHttpRequest()
+					);
 			}
 		catch (Exception $e) {
 			$this->presenter->flashMessage('Saving of new comment failed', 'error');
