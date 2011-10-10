@@ -32,7 +32,7 @@ extends \Doctrine\DBAL\Migrations\AbstractMigration
 		$cmts->addColumn('id', 'integer', array('notnull'=>TRUE, 'autoincrement'=>TRUE));
 		$cmts->addColumn('author', 'string', array('length'=>100, 'notnull'=>TRUE));
 		$cmts->addColumn('email', 'string', array('length'=>100, 'notnull'=>TRUE));
-		$cmts->addColumn('url', 'string', array('length'=>100, 'default'=>NULL));
+		$cmts->addColumn('url', 'string', array('length'=>100, 'notnull'=>FALSE));
 		$cmts->addColumn('ip', 'integer', array('notnull'=>TRUE));
 		$cmts->addColumn('text', 'text', array('notnull'=>TRUE));
 		$cmts->addColumn('approved', 'boolean', array('notnull'=>TRUE));
