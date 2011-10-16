@@ -57,8 +57,7 @@ extends \Lohini\Application\UI\Form
 				->getRepository('LP:Blog\Models\Entities\Comment')
 				->insertNew(
 					$vals,
-					$this->presenter->getParam('slug'),
-					$this->getHttpRequest()
+					$this->presenter->getParam('slug')
 					);
 			}
 		catch (Exception $e) {

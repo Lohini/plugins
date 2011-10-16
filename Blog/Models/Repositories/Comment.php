@@ -56,9 +56,9 @@ extends \Lohini\Database\Doctrine\ORM\EntityRepository
 	 * @param type $request
 	 * @return Comment
 	 */
-	public function insertNew($data, $slug, \Nette\Http\IRequest $request)
+	public function insertNew($data, $slug)
 	{
-		$data['ip']=$request->getRemoteAddress();
+		$data['ip']=\Lohini\Utils\Network::getRemoteIP();
 		$data['text']=$data['comment'];
 		$data['approved']=TRUE;
 		$data['created']=new \DateTime;
