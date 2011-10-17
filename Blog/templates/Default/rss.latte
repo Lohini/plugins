@@ -1,9 +1,12 @@
 {contentType text/xml; charset=utf-8}
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
+<rss version="2.0"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	>
 	<channel>
 		<title>{$MTBlogName}</title>
-		<link>{$basePath}{link //this}</link>
+		<atom:link href="{link //this}" rel="self" type="application/rss+xml" />
+		<link>{link //this}</link>
 		<description>{$MTBlogDescription}</description>
 		<language>{$lang}</language>
 		<copyright>Copyright 2011 Lopo</copyright>
@@ -11,15 +14,15 @@
 		<docs>http://feed2.w3.org/docs/rss2.html</docs>
 	{foreach $posts as $post}
 		<item>
-			<title>{$post->headline}</title>
+			<title><![CDATA[{$post->headline}]]></title>
 			<link>{link //post $post->slug}</link>
-			<description>{$post->text|perex|texy}</description>
+			<description><![CDATA[{!$post->text|texy|perex}]]></description>
 		{foreach $post->tags as $tag}
-			<category>{$tag->name}</category>
+			<category><![CDATA[{$tag->name}]]></category>
 		{/foreach}
 			<comments>{link //post#comments $post->slug}</comments>
 			<guid isPermaLink="true">{link //post $post->slug}</guid>
-			<pubDate>{$post->created->format(\DateTime::RFC822)}</pubdate>
+			<pubDate>{$post->created->format(DATE_RSS)}</pubDate>
 		</item>
 	{/foreach}
 	</channel>
