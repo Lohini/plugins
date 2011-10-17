@@ -11,7 +11,7 @@
 				<p>{$MTBlogDescription}</p>
 				<p>
 					<a href="{$basePath}/" class="links">{__('Front page')}</a><br />
-					<a href="{$basePath}/blog/archive" class="links">{__('Archive')}</a><br />
+					<a n:href=":Blog:Default:archive" class="links">{__('Archive')}</a><br />
 				</p>
 			</div>
 			<div id="tagCloud">
@@ -21,12 +21,12 @@
 <!--This is where the actual content of your blog goes. -->
 		<td valign="top">
 			{foreach $posts as $post}
-			<p><a href="{$basePath}/blog/{$post->slug}"><strong>{$post->headline}</strong></a>
+			<p><a n:href=":Blog:Default:post $post->slug"><strong>{$post->headline}</strong></a>
 			<div class="posts">
 				<p>
 					<a name="{$post->slug}">
 						<b class="byline">
-							<span class="date">{__('Posted')} {$post->created->format('j.n.Y')}</span> {__('by')} {$post->user->identity->displayName} (<a href="{$basePath}/blog/{$post->slug}#comments" class="comments-link">{__('comments')}: {$post->commentsCnt}</a>)
+							<span class="date">{__('Posted')} {$post->created->format('j.n.Y')}</span> {__('by')} {$post->user->identity->displayName} (<a n:href=":Blog:Default:post#comments $post->slug" class="comments-link">{__('comments')}: {$post->commentsCnt}</a>)
 						</b>
 					</a>
 					<br />
@@ -35,7 +35,7 @@
 			<blockquote><hr></blockquote>
 			{/foreach}
 			<p><div align="center">
-				<a style="font-size: 14px; font-weight: bold" href="{$basePath}/blog">{__('Home')}</a>
+				<a style="font-size: 14px; font-weight: bold" n:href=":Blog:Default:">{__('Home')}</a>
 			</div></p>
 		</td>
 	</tr>

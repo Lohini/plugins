@@ -11,8 +11,12 @@
 	<tr n:foreach="$posts as $post">
 		<td class="ac">{$post->created->format('j.n.Y')}</td>
 		<td class="ac">
-			<a href="{$basePath}/blog/{$post->slug}">{$post->headline}</a>
+			<a n:href=":Blog:Default:post $post->slug">{$post->headline}</a>
 		</td>
 		<td class="ac">{$post->user->identity->displayName}</td>
 	</tr>
 </table>
+<div class="navigation clear">
+	<div><a n:href="this 'page'=>$page+1" n:if="count($posts)">&laquo; {__('older')}</a></div>
+	<div><a n:href="this 'page'=>$page-1" n:if="$page>1">{__('next')} &raquo; </a></div>
+</div>
