@@ -42,15 +42,6 @@ extends \LohiniPlugins\Blog\Presenters\SecuredPresenter
 	}
 
 	/**
-	 * @param string $texy
-	 */
-	public function actionPreview($texy)
-	{
-		echo \Lohini\Templating\Helpers::texy($texy);
-		$this->terminate();
-	}
-
-	/**
 	 * @param string $word_filter
 	 */
 	public function actionTagInputSuggestTags($word_filter)
@@ -151,7 +142,7 @@ extends \LohiniPlugins\Blog\Presenters\SecuredPresenter
 		$form->setDefaults(array(
 				'id' => $id,
 				'headline' => $post->headline,
-				'text' => $post->text,
+				'texy' => $post->text,
 				'tags' => implode(',', array_map(function($tag) {return $tag->name;}, $post->tags->toArray()))
 				));
 		$form['draft']->setDisabled();

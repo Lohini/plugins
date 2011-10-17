@@ -8,7 +8,8 @@
 namespace LohiniPlugins\Blog;
 
 use Nette\Application\IRouter,
-	Nette\Application\Routers\Route;
+	Nette\Application\Routers\Route,
+	Nette\Environment;
 
 /**
  * Main class of plugin Blog
@@ -46,7 +47,7 @@ extends \Lohini\Plugins\Plugin
 			default:
 				return;
 			}
-		$blog[]=new Route(self::PREFIX, 'Default:');
+		$blog[]=new Route(self::PREFIX.'[/<lang='.Environment::getVariable('lang').' [a-z]{2}>]', 'Default:');
 	}
 
 	/**
@@ -66,9 +67,9 @@ extends \Lohini\Plugins\Plugin
 	private function routerEnabled(IRouter $router)
 	{
 		$router[]=new Route(self::PREFIX.'/tagcloud', 'Default:tagcloud');
-		$router[]=new Route(self::PREFIX.'/archive', 'Default:archive');
-		$router[]=new Route(self::PREFIX.'/tag/<tag [a-z0-9 _-]+>', 'Default:tag');
-		$router[]=new Route(self::PREFIX.'/<slug [a-z0-9_-]+>', 'Default:post');
+		$router[]=new Route(self::PREFIX.'/archive[/<lang='.Environment::getVariable('lang').' [a-z]{2}>][/<page=1 \d+>]', 'Default:archive');
+		$router[]=new Route(self::PREFIX.'/tag[/<lang='.Environment::getVariable('lang').' [a-z]{2}>]/<tag [a-z0-9 _-]{3,}>[/<page=1 \d+>]', 'Default:tag');
+		$router[]=new Route(self::PREFIX.'/[<lang='.Environment::getVariable('lang').' [a-z]{2}>/]<slug [a-z0-9_-]+>', 'Default:post');
 		return $router;
 	}
 }

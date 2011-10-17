@@ -44,7 +44,7 @@ extends \Doctrine\DBAL\Migrations\AbstractMigration
 		$tags=$schema->createTable('_blog_tags');
 		$tags->addColumn('id', 'integer', array('notnull'=>TRUE, 'autoincrement'=>TRUE));
 		$tags->addColumn('name', 'string', array('length'=>100, 'notnull'=>TRUE));
-		$posts->addColumn('created', 'datetime', array('notnull'=>TRUE));
+		$tags->addColumn('created', 'datetime', array('notnull'=>TRUE));
 		$tags->addUniqueIndex(array('name'));
 		$tags->setPrimaryKey(array('id'));
 
@@ -79,9 +79,8 @@ extends \Doctrine\DBAL\Migrations\AbstractMigration
 	 */
 	public function postUp(Schema $schema)
 	{
-		$s=$schema->getTable('_blog_settings');
-		$this->connection->insert($schema->getTable('_blog_settings'), array('name'=>'blogName'));
-		$this->connection->insert($schema->getTable('_blog_settings'), array('name'=>'blogDescription'));
+		$this->connection->insert('_blog_settings', array('name'=>'blogName'));
+		$this->connection->insert('_blog_settings', array('name'=>'blogDescription'));
 	}
 
 	/**

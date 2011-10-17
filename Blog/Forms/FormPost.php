@@ -30,9 +30,8 @@ extends \Lohini\Application\UI\Form
 		$this->addHidden('id');
 		$this->addText('headline', 'Title', 100, 255)
 				->addRule(Form::FILLED, 'Please fill title');
-		$this->addTextArea('text', 'Text', 100, 20)
-				->addRule(Form::FILLED, 'Text is empty')
-				->getControlPrototype()->addClass('texyla');
+		$this->addTexyla('texy', 'Text', 100, 20)
+				->addRule(Form::FILLED, 'Post text is empty');
 		$this->addTag('tags', 'Tags')
 				->setDelimiter('[,.;]+')
 				->addRule(Controls\TagInput::UNIQUE, 'All tags must be unique.')
@@ -68,9 +67,10 @@ extends \Lohini\Application\UI\Form
 		$sqldb=\Nette\Environment::getService('sqldb');
 		$vals['headline']=$values['headline'];
 		$vals['slug']=Strings::webalize(Strings::toAscii(Strings::truncate($values['headline'], 100, '')));
-		$vals['text']=$values['text'];
-		$vals['status']=Post::POSTSTATE_PUBLISHED;
+		$vals['text']=$values['texy'];
+		$vals['status']=$state;
 		$vals['created']=new \DateTime;
+		$vals['tags']=$values['tags'];
 		$vals['user']=$sqldb->getRepository('LE:User')->findOneById(\Nette\Environment::getUser()->getId());
 		$post=$sqldb->getModelService('LohiniPlugins\Blog\Models\Entities\Post')->create($vals);
 		$this->presenter->flashMessage('post created');
@@ -79,7 +79,6 @@ extends \Lohini\Application\UI\Form
 
 	/**
 	 * @param array $values
-	 * @param int $state
 	 */
 	public function postUpdate($values)
 	{
@@ -88,7 +87,7 @@ extends \Lohini\Application\UI\Form
 		$post=$sqldb->getRepository('LP:Blog\Models\Entities\Post')->findOneById($id);
 		$post->headline=$values['headline'];
 		$post->slug=Strings::webalize(Strings::toAscii(Strings::truncate($values['headline'], 100, '')));
-		$post->text=$values['text'];
+		$post->text=$values['texy'];
 		$ptags=array();
 		if (array_key_exists('tags', $values)) {
 			$tagService=$sqldb->getModelService('LohiniPlugins\Blog\Models\Entities\Tag');

@@ -23,7 +23,7 @@ extends \Lohini\Database\Doctrine\ORM\BaseService
 					$values['tags']=explode(',', $values['tags']);
 					}
 				if (is_array($values['tags'])) {
-					$tagService=$this->getContainer()->getModelService('LP:Blog\Models\Entities\Tag');
+					$tagService=$this->getContainer()->getModelService('LohiniPlugins\Blog\Models\Entities\Tag');
 					foreach ($values['tags'] as $tag) {
 						if ($tag instanceof \LohiniPlugins\Blog\Models\Entities\Tag) {
 							$ptags[]=$tag;

@@ -77,19 +77,19 @@ extends \Lohini\Application\UI\Form
 
 	private function response($success=TRUE)
 	{
-		if (!$this->presenter->isAjax()) {
-			$this->presenter->redirect('this#comments');
+		$pres=$this->presenter;
+		if (!$pres->isAjax()) {
+			$pres->redirect('this#comments');
 			}
 		else {
 			if ($success) {
-				$comments=$this->presenter->context->sqldb->getRepository('LP:Blog\Models\Entities\Comment')->getBySlug($this->presenter->getParam('slug'));
-				$this->presenter->template->comments=$comments;
+				$pres->template->comments=$pres->context->sqldb->getRepository('LP:Blog\Models\Entities\Comment')->getBySlug($pres->getParam('slug'));
 
-				$this->presenter->invalidateControl('comments');
-				$this->presenter->invalidateControl('commentsLink');
+				$pres->invalidateControl('comments');
+				$pres->invalidateControl('commentsLink');
 				$this->setValues(array(), TRUE);
 				}
-			$this->presenter->invalidateControl('commentForm');
+			$pres->invalidateControl('commentForm');
 			}
 	}
 }
