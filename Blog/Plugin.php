@@ -67,6 +67,7 @@ extends \Lohini\Plugins\Plugin
 	private function routerEnabled(IRouter $router)
 	{
 		$router[]=new Route(self::PREFIX.'/tagcloud', 'Default:tagcloud');
+		$router[]=new Route(self::PREFIX.'/rss[/<lang='.\Nette\Environment::getVariable('lang').' [a-z]{2}>]', 'Default:rss');
 		$router[]=new Route(self::PREFIX.'/archive[/<lang='.Environment::getVariable('lang').' [a-z]{2}>][/<page=1 \d+>]', 'Default:archive');
 		$router[]=new Route(self::PREFIX.'/tag[/<lang='.Environment::getVariable('lang').' [a-z]{2}>]/<tag [a-z0-9 _-]{3,}>[/<page=1 \d+>]', 'Default:tag');
 		$router[]=new Route(self::PREFIX.'/[<lang='.Environment::getVariable('lang').' [a-z]{2}>/]<slug [a-z0-9_-]+>', 'Default:post');

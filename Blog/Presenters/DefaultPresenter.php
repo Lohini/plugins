@@ -88,4 +88,9 @@ extends BasePresenter
 	{
 		return new Blog\Forms\FormComment($this, 'formComment');
 	}
+
+	public function actionRss()
+	{
+		$this->template->posts=$this->context->sqldb->getRepository('LP:Blog\Models\Entities\Post')->getPublishedPostsPage(1);
+	}
 }

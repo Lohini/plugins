@@ -1,0 +1,26 @@
+{contentType text/xml; charset=utf-8}
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+	<channel>
+		<title>{$MTBlogName}</title>
+		<link>{$basePath}{link //this}</link>
+		<description>{$MTBlogDescription}</description>
+		<language>{$lang}</language>
+		<copyright>Copyright 2011 Lopo</copyright>
+		<generator>LohiniPlugins\Blog</generator>
+		<docs>http://feed2.w3.org/docs/rss2.html</docs>
+	{foreach $posts as $post}
+		<item>
+			<title>{$post->headline}</title>
+			<link>{link //post $post->slug}</link>
+			<description>{$post->text|perex|texy}</description>
+		{foreach $post->tags as $tag}
+			<category>{$tag->name}</category>
+		{/foreach}
+			<comments>{link //post#comments $post->slug}</comments>
+			<guid isPermaLink="true">{link //post $post->slug}</guid>
+			<pubDate>{$post->created->format(\DateTime::RFC822)}</pubdate>
+		</item>
+	{/foreach}
+	</channel>
+</rss>
