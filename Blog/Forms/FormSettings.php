@@ -31,6 +31,9 @@ extends \Lohini\Application\UI\Form
 				->setDefaultValue($repo->findOneByName('blogName')->value);
 		$this->addText('blogDescription', 'Blog description', 100, 255)
 				->setDefaultValue($repo->findOneByName('blogDescription')->value);
+		$this->addText('commentsInterval', 'Comments interval (minutes, 0=disable)', 5, 2)
+				->addRule(Form::INTEGER, 'value must be integer')
+				->setDefaultValue($repo->findOneByName('commentsInterval')->value);
 
 		$this->addSubmit('update', 'Update');
 
@@ -47,6 +50,8 @@ extends \Lohini\Application\UI\Form
 
 		$repo->findOneByName('blogName')->value=$fvals['blogName'];
 		$repo->findOneByName('blogDescription')->value=$fvals['blogDescription'];
+		$repo->findOneByName('commentsInterval')->value=$fvals['commentsInterval'];
+
 		$sqldb->entityManager->flush();
 	}
 }

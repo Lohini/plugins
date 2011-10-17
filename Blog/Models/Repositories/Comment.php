@@ -65,4 +65,22 @@ extends \Lohini\Database\Doctrine\ORM\EntityRepository
 		$data['post']=$this->getEntityManager()->getRepository('LP:Blog\Models\Entities\Post')->findOneBySlug($slug);
 		return \Nette\Environment::getService('sqldb')->getModelService('LohiniPlugins\Blog\Models\Entities\Comment')->create($data);
 	}
+
+	/**
+	 * @param string|int $ip
+	 * @return \LohiniPlugins\Blog\Models\Entities\Comment
+	 */
+	public function getLastByIP($ip)
+	{
+		if (is_string($ip)) {
+			$ip=ip2long($ip);
+			}
+		return $this->createQueryBuilder('c')
+				->where('c.ip = :ip')
+				->orderBy('c.created', 'DESC')
+				->setParameter('ip', $ip)
+				->getQuery()
+				->setMaxResults(1)
+				->getSingleResult();
+	}
 }

@@ -46,16 +46,28 @@ extends \Lohini\Application\UI\Form
 		try {
 			$vals=$this->getValues();
 			$user=$this->presenter->getUser();
+			$sqldb=$form->presenter->context->sqldb;
+			$repo=$sqldb->getRepository('LP:Blog\Models\Entities\Comment');
 			if ($user->isLoggedIn()) {
 				$identity=$user->identity;
 				$vals['author']=$identity->displayName;
 				$vals['email']=$identity->email;
 				$vals['url']=$this->presenter->link('//:Core:Default:');
 				}
+			// simple antispam
+			else {
+				$int=$sqldb->getRepository('LP:Blog\Models\Entities\Setting')
+						->findOneByName('commentsInterval')->value;
+				if ($int
+					&& $repo->getLastByIP(\Lohini\Utils\Network::getRemoteIP())->created->getTimestamp()+60*$int > time()
+					) {
+					$this->addError("You can post no more than one comment every $int minutes (spam protection)");
+					$this->response(FALSE);
+					return;
+					}
+				}
 			$vals['url']=rtrim(\Nette\Utils\Strings::replace($vals['url'], '#^https?://#', ''), '/');
-			$form->presenter->context->sqldb
-				->getRepository('LP:Blog\Models\Entities\Comment')
-				->insertNew(
+			$repo->insertNew(
 					$vals,
 					$this->presenter->getParam('slug')
 					);
