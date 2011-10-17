@@ -18,8 +18,8 @@
 			<td colspan="2">{$form['headline']->control}</td>
 		</tr>
 		<tr>
-			<th>{$form['text']->label}</th>
-			<td colspan="2">{$form['text']->control}</td>
+			<th>{$form['texy']->label}</th>
+			<td colspan="2">{$form['texy']->control}</td>
 		</tr>
 		<tr>
 			<th>{$form['tags']->label}</th>
@@ -30,21 +30,3 @@
 		</tr>
 	</table>
 {control formPost end}
-<script type="text/javascript">
-	head.js(
-		'{control texyla:link}',
-		function() {
-			$('textarea.texyla')
-				.texyla({
-					language: 'en',
-					baseDir: {$basePath}+'/img/texyla',
-					previewPath: {plink preview},
-					filesPath: {$filesPath},
-					filesUploadPath: {$filesUploadPath},
-					filesThumbPath: "%var%",
-					toolbar: ['h3', 'h4', null, 'bold', 'italic', null, 'ul', 'ol', 'blockquote', 'table', 'symbol', null, 'link', 'img'],
-					bottomRightPreviewToolbar: []
-					});
-			}
-		);
-</script>
