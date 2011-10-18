@@ -29,7 +29,7 @@ extends \Lohini\Database\Doctrine\ORM\EntityRepository
 	/**
 	 * 
 	 */
-	public function getPostsByTag($tag, $page=1)
+	public function getPostsByTag($tag, $page=1, $perPage=10)
 	{
 		$q=$this->createQueryBuilder('p')
 				->leftJoin('p.tags', 't')
@@ -40,7 +40,7 @@ extends \Lohini\Database\Doctrine\ORM\EntityRepository
 				->setParameter('tag', $tag)
 				->getQuery();
 		$cnt=Paginate::getTotalQueryResults($q);
-		return $q->setFirstResult($page-1)->setMaxResults(10)->getResult();
+		return $q->setFirstResult(($page-1)*$perPage)->setMaxResults($perPage)->getResult();
 	}
 
 	public function getPublishedPosts()
@@ -53,7 +53,7 @@ extends \Lohini\Database\Doctrine\ORM\EntityRepository
 		return $q->getResult();
 	}
 
-	public function getPublishedPostsPage($page=1)
+	public function getPublishedPostsPage($page=1, $perPage=10)
 	{
 		$q=$this->createQueryBuilder('p')
 				->where("p.status= :status")
@@ -61,6 +61,6 @@ extends \Lohini\Database\Doctrine\ORM\EntityRepository
 				->setParameter('status', PEntity::POSTSTATE_PUBLISHED)
 				->getQuery();
 		$cnt=Paginate::getTotalQueryResults($q);
-		return $q->setFirstResult($page-1)->setMaxResults(10)->getResult();
+		return $q->setFirstResult(($page-1)*$perPage)->setMaxResults($perPage)->getResult();
 	}
 }

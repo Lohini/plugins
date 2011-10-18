@@ -18,17 +18,35 @@ use Nette\Forms\Form,
 class DefaultPresenter
 extends BasePresenter
 {
+	/**
+	 * @var int
+	 * @persistent
+	 */
+	public $page=1;
+	/** @var int */
+	private $perPage=10;
+
+
 	protected function startup()
 	{
 		parent::startup();
-		$this->template->title='Blog';
+		if ($this->page<1) {
+			$this->page=1;
+			}
+		$this->perPage=$this->context->sqldb->getRepository('LP:Blog\Models\Entities\Setting')
+				->findOneByName('postsPerPage')->value;
+	}
+
+	protected function beforeRender()
+	{
+		parent::beforeRender();
+		$this->template->page=$this->page;
 	}
 
 	public function renderDefault()
 	{
-		$repo=$this->context->sqldb->getRepository('LP:Blog\Models\Entities\Post');
-		$page=1;
-		$this->template->posts=$repo->getPublishedPostsPage($page);
+		$this->template->posts=$this->context->sqldb->getRepository('LP:Blog\Models\Entities\Post')
+				->getPublishedPostsPage($this->page, $this->perPage);
 	}
 
 	/**
@@ -54,8 +72,7 @@ extends BasePresenter
 	public function renderTag($tag)
 	{
 		$repo=$this->context->sqldb->getRepository('LP:Blog\Models\Entities\Post');
-		$page=1;
-		$this->template->posts=$repo->getPostsByTag($tag, $page);
+		$this->template->posts=$repo->getPostsByTag($tag, $this->page, $this->perPage);
 		$this->template->tagName=$tag;
 	}
 
@@ -76,9 +93,10 @@ extends BasePresenter
 		$this->terminate();
 	}
 
-	public function renderArchive()
+	public function actionArchive()
 	{
-		$this->template->posts=$this->context->sqldb->getRepository('LP:Blog\Models\Entities\Post')->getPublishedPosts();
+		$this->template->posts=$this->context->sqldb->getRepository('LP:Blog\Models\Entities\Post')
+				->getPublishedPostsPage($this->page, $this->perPage);
 	}
 
 	/**
@@ -91,6 +109,7 @@ extends BasePresenter
 
 	public function actionRss()
 	{
-		$this->template->posts=$this->context->sqldb->getRepository('LP:Blog\Models\Entities\Post')->getPublishedPostsPage(1);
+		$this->template->posts=$this->context->sqldb->getRepository('LP:Blog\Models\Entities\Post')
+				->getPublishedPostsPage();
 	}
 }

@@ -19,7 +19,7 @@ use Nette\Application\IRouter,
 class Plugin
 extends \Lohini\Plugins\Plugin
 {
-	const VERSION=201109140923;
+	const VERSION=201110181515;
 	const AUTHOR='Lopo';
 	const PREFIX='blog';
 
